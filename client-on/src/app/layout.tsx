@@ -17,8 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar /> {/* Use the Navbar component here */}
-        <main className="container mx-auto p-6">
+        <main>
           {children} {/* Your page content will be injected here */}
         </main>
       </body>

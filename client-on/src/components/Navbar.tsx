@@ -22,13 +22,13 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-gray-800 text-white shadow-lg">
+    <nav className="bg-gray-400 text-white shadow-lg">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo or Brand Name */}
           <div>
             <Link href="/" className="text-2xl font-bold transition-colors hover:text-cyan-400">
-                MyApp
+                ClientOn
             </Link>
           </div>
 
