@@ -24,3 +24,20 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Estilização do botão dos sliders da homepage */
+
+/* Define a aparência do ícone da seta (o ">" e "<") */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  color: rgba(0, 0, 0, 0.418);       
+  font-size: 18px;    /* Tamanho do ícone da seta */
+  font-weight: 800;   /* Deixa o ícone mais "grosso" e visível */
+  border: #0a0a0a;
+  transition: color 0.2s ease-in-out;
+}
+
+.swiper-button-next:hover::after,
+.swiper-button-prev:hover::after {
+  color: white; /* ou rgb(254, 254, 254) como você usou */
+}
