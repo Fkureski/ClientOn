@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 // components/Navbar.tsx
 import { useState } from 'react';
@@ -22,21 +22,21 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-gray-400 text-white shadow-lg">
+    <nav className="bg-white/30 backdrop-blur-md text-black shadow-lg">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo or Brand Name */}
           <div>
-            <Link href="/" className="text-2xl font-bold transition-colors hover:text-cyan-400">
-                ClientOn
+            <Link href="/" className="text-2xl font-bold">
+              ClientOn
             </Link>
           </div>
 
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="transition-colors hover:text-cyan-400">
-                  {link.label}
+              <Link key={link.href} href={link.href} className="">
+                {link.label}
               </Link>
             ))}
           </div>
@@ -84,7 +84,7 @@ const Navbar: React.FC = () => {
           <div className="flex flex-col space-y-4">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href} className="block rounded py-2 transition-colors hover:bg-gray-700 px-4">
-                  {link.label}
+                {link.label}
               </Link>
             ))}
           </div>
