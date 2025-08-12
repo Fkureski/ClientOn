@@ -3,6 +3,7 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar"; // Import the corrected Navbar
 import "@/styles/globals.css"; // Assuming you have this file for Tailwind
+import { ThemeProvider } from "@material-tailwind/react";
 
 export const metadata: Metadata = {
   title: "MyApp",
