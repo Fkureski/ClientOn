@@ -6,8 +6,8 @@ import "@/styles/globals.css"; // Assuming you have this file for Tailwind
 import { ThemeProvider } from "@material-tailwind/react";
 
 export const metadata: Metadata = {
-  title: "MyApp",
-  description: "A cool app built with Next.js",
+  title: "ClienOn",
+  description: "This is a software made to facilitate the micro entrepreneur",
 };
 
 export default function RootLayout({

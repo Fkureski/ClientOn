@@ -96,7 +96,7 @@ const Footer = () => (
           <h2 className='text-2xl font-bold mb-2'>
             ClientOn
           </h2>
-          <p className='text-zinc-400 text-sm'>
+          <p className='text-zinc-400 text-sm pr-10'>
           Uma plataforma completa que transformará seu modelo de administrar sua empresa.
           </p>
         </div>
