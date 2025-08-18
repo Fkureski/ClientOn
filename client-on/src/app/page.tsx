@@ -1,7 +1,7 @@
 "use client";
 
 //app page.tsx
-import {useState} from 'react';
+import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import * as React from 'react';
 import Button from '@mui/material/Button';
