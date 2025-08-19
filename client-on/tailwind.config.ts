@@ -1,18 +1,16 @@
-import type { Config } from "tailwindcss";
-
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   content: [
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",        // app/ na raiz
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",        // caso use src/
+    "./components/**/*.{js,ts,jsx,tsx,mdx}", // caso a pasta esteja na raiz
   ],
   theme: {
     extend: {
       backgroundImage: {
-        // Aqui está a sua classe de fundo personalizada
-        'form-fundo': "url('/signin_bg.png')", 
+        "form-fundo": "url('/signin_bg.png')",
       },
     },
   },
   plugins: [],
 };
-export default config;

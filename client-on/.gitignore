@@ -1,6 +1,7 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# See https://help.github.com/articles/ignoring-files/
 
-# dependencies
+### Dependencies ###
+# Lockfiles and local packages for various package managers
 /node_modules
 /.pnp
 .pnp.*
@@ -9,33 +10,43 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+.pnpm-debug.log*
 
-# testing
-/coverage
-
-# next.js
+### Build & Cache ###
+# Build outputs and caches from Next.js, TypeScript, and other tools
 /.next/
 /out/
-
-# production
 /build
+*.tsbuildinfo
+next-env.d.ts
 
-# misc
+### IDE & Editor ###
+# Visual Studio / .NET specific files
+.vs/
+[Bb]in/
+[Oo]bj/
+ClientOnApplication/.vs/
+
+### OS & Miscellaneous ###
+# macOS specific files
 .DS_Store
-*.pem
 
-# debug
+# Vercel hosting platform
+.vercel
+
+### Logs ###
+# General log files for various package managers
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+### Testing ###
+# Test coverage reports
+/coverage
+
+### Sensitive & Environment Files ###
+# Environment variables - should not be committed
 .env*
 
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Private keys
+*.pem
