@@ -13,7 +13,7 @@ const navLinks: NavLink[] = [
   //{ href: '/about', label: 'About' },
   //{ href: '/services', label: 'Services' },
   { href: '/Login', label: 'Login' },
-  { href: '/signin', label: 'Cadastro'}
+  { href: '/signIn', label: 'Cadastro'}
 ];
 
 const Navbar: React.FC = () => {

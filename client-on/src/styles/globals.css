@@ -41,3 +41,9 @@ body {
 .swiper-button-prev:hover::after {
   color: white; /* ou rgb(254, 254, 254) como você usou */
 }
+
+@layer utilities {
+  .bg-form-fundo {
+    background-image: url('/signin_bg.png');
+  }
+}
