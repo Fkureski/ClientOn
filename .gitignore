@@ -1,1 +1,22 @@
-ClientOnApplication/
+@'
+# Visual Studio / .NET
+**/.vs/
+**/bin/
+**/obj/
+**/*.user
+**/*.suo
+**/*.VC.db
+
+# VS Code / IDEs
+**/.vscode/
+**/.idea/
+
+# Node/Next (se houver)
+**/node_modules/
+.next/
+dist/
+
+# SO
+Thumbs.db
+.DS_Store
+'@ | Out-File -Encoding utf8 .gitignore
