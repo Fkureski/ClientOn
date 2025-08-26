@@ -1,0 +1,16 @@
+@ClientOnApplication_HostAddress = http://localhost:5082
+
+GET {{ClientOnApplication_HostAddress}}/weatherforecast/
+Accept: application/json
+
+### Register a new Store
+POST {{ClientOnApplication_HostAddress}}/api/stores/register
+Content-Type: application/json
+
+{
+  "name": "Outra Loja de Teste",
+  "cnpj": "12.345.678/0001-99",
+  "password": "AnotherPassword456",
+  "email": "contato@outraloja.com",
+  "fantasyName": "Outra Loja"
+}

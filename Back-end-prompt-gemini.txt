@@ -1,0 +1,223 @@
+I want to do a monolith for my project ClientOn, witch has ClientOnApplication as project name in back-end.
+
+For my db, I'm using supabase.
+
+Here are my considerations:
+
+
+
+1. I want to do only one connection with db, not many.
+
+2. Make it as better as we can to separate things following good practices and design patterns.
+
+3. I want to use .NET normal sintax:
+
+public class ... {
+
+}
+
+Not the one with (), but the default one.
+
+4. I like to use DTO and this kind of things.
+
+5. I'm studying while doing this, some explain, prefer to do step by step.
+
+Like, 1 prompt for API folder, Other prompt for endpoint folder, and same for other.
+
+6. If you have insights or want to add or delete something in db, please guide me.
+
+
+
+Here is the db:
+
+-- WARNING: This schema is for context only and is not meant to be run.
+
+-- Table order and constraints may not be valid for execution.
+
+
+
+CREATE TABLE public.adress (
+
+id bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+
+store_id integer,
+
+client_id integer,
+
+street character varying,
+
+number integer,
+
+neighborhood character varying,
+
+cep character varying,
+
+complement character varying,
+
+created_at timestamp with time zone NOT NULL DEFAULT now(),
+
+CONSTRAINT adress_pkey PRIMARY KEY (id),
+
+CONSTRAINT adress_store_id_fkey FOREIGN KEY (store_id) REFERENCES public.store(id),
+
+CONSTRAINT adress_client_id_fkey FOREIGN KEY (client_id) REFERENCES public.client(id)
+
+);
+
+CREATE TABLE public.branch_store (
+
+id integer NOT NULL DEFAULT nextval('branch_store_id_seq'::regclass),
+
+store_id integer NOT NULL,
+
+cnpj character varying NOT NULL UNIQUE,
+
+created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+
+CONSTRAINT branch_store_pkey PRIMARY KEY (id),
+
+CONSTRAINT branch_store_store_id_fkey FOREIGN KEY (store_id) REFERENCES public.store(id)
+
+);
+
+CREATE TABLE public.client (
+
+id integer NOT NULL DEFAULT nextval('client_id_seq'::regclass),
+
+first_name character varying NOT NULL,
+
+last_name character varying NOT NULL,
+
+birthday_date date NOT NULL,
+
+cpf character varying NOT NULL,
+
+email character varying NOT NULL,
+
+phone_number character varying NOT NULL,
+
+created_at timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+updated_at timestamp with time zone DEFAULT (now() AT TIME ZONE 'utc'::text),
+
+CONSTRAINT client_pkey PRIMARY KEY (id)
+
+);
+
+CREATE TABLE public.payment (
+
+id integer NOT NULL DEFAULT nextval('payment_id_seq'::regclass),
+
+purchase_id integer NOT NULL,
+
+payment_type character varying NOT NULL,
+
+payment_method character varying NOT NULL,
+
+created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+
+CONSTRAINT payment_pkey PRIMARY KEY (id),
+
+CONSTRAINT payment_purchase_id_fkey FOREIGN KEY (purchase_id) REFERENCES public.purchase(id)
+
+);
+
+CREATE TABLE public.purchase (
+
+id integer NOT NULL DEFAULT nextval('purchase_id_seq'::regclass),
+
+client_id integer NOT NULL,
+
+sys_user_id integer NOT NULL,
+
+discount_applied boolean DEFAULT false,
+
+discount_percentage numeric,
+
+discount_type character varying,
+
+purchase_date date NOT NULL DEFAULT CURRENT_DATE,
+
+CONSTRAINT purchase_pkey PRIMARY KEY (id),
+
+CONSTRAINT purchase_sys_user_id_fkey FOREIGN KEY (sys_user_id) REFERENCES public.sys_user(id),
+
+CONSTRAINT purchase_client_id_fkey FOREIGN KEY (client_id) REFERENCES public.client(id)
+
+);
+
+CREATE TABLE public.purchase_product (
+
+id integer NOT NULL DEFAULT nextval('purchase_product_id_seq'::regclass),
+
+purchase_id integer NOT NULL,
+
+category character varying NOT NULL,
+
+brand character varying NOT NULL,
+
+price numeric NOT NULL,
+
+created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+
+CONSTRAINT purchase_product_pkey PRIMARY KEY (id),
+
+CONSTRAINT purchase_product_purchase_id_fkey FOREIGN KEY (purchase_id) REFERENCES public.purchase(id)
+
+);
+
+CREATE TABLE public.store (
+
+id integer NOT NULL DEFAULT nextval('store_id_seq'::regclass),
+
+name character varying NOT NULL,
+
+cnpj character varying NOT NULL UNIQUE,
+
+password character varying NOT NULL,
+
+created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+
+email character varying NOT NULL,
+
+fantasy_name character varying NOT NULL,
+
+CONSTRAINT store_pkey PRIMARY KEY (id)
+
+);
+
+CREATE TABLE public.sys_user (
+
+id integer NOT NULL DEFAULT nextval('sys_user_id_seq'::regclass),
+
+store_id integer NOT NULL,
+
+branch_store_id integer,
+
+first_name character varying NOT NULL,
+
+last_name character varying NOT NULL,
+
+password character varying NOT NULL,
+
+role character varying NOT NULL,
+
+created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+
+CONSTRAINT sys_user_pkey PRIMARY KEY (id),
+
+CONSTRAINT sys_user_store_id_fkey FOREIGN KEY (store_id) REFERENCES public.store(id),
+
+CONSTRAINT sys_user_branch_store_id_fkey FOREIGN KEY (branch_store_id) REFERENCES public.branch_store(id)
+
+);
+
+
+
+7. I don't want to use entity framework.
+
+8. I want to hash the users passwords
+
+
+
+Lets start with the store registration!!
