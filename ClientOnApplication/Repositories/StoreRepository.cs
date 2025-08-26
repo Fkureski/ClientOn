@@ -18,7 +18,7 @@ namespace ClientOnApplication.Repositories
             var sql = @"
                 INSERT INTO stores (name, cnpj, password, email, fantasy_name)
                 VALUES (@Name, @Cnpj, @Password, @Email, @FantasyName)
-                RETURNING id, name, cnpj, password, email, fantasy_name AS FantasyName, created_at AS CreatedAt;"";
+                RETURNING id, name, cnpj, password, email, fantasy_name AS FantasyName, created_at AS CreatedAtd;
             ";
             await using var connection = new NpgsqlConnection(_configuration.GetConnectionString("DefaultConnection"));
             var newStore = await connection.QuerySingleAsync<Store>(sql, store);
