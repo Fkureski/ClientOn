@@ -3,6 +3,20 @@ using ClientOnApplication.Services.Store;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//CORS configuration
+var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: myAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:3000")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                      });
+});
+
 // This tells .NET: "When a class asks for IStoreService, give it an instance of StoreService."
 builder.Services.AddScoped<IStoreService, StoreService>();
 
@@ -24,6 +38,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(myAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
 

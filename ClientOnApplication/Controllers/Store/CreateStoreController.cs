@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ClientOnApplication.Controllers.Store
 {
     [ApiController]
-    [Route("api/[controller]")] // This will result in the URL: /api/stores
+    [Route("api/[controller]")] 
     public class CreateStoreController : ControllerBase
     {
         private readonly IStoreService _storeService;
