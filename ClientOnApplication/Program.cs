@@ -1,11 +1,49 @@
 using ClientOnApplication.Repositories;
 using ClientOnApplication.Services.Store;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Jwt Bearer configurations
+//Add Services to the container.
+builder.Services.AddControllers();
+//Add authentication and jwt bearer
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        //Configuration for validation Token
+        //Issuer (Who created the token)
+        ValidateIssuer = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+
+        //Audience (Who is the token intended for)
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+
+        //Lifetime (Is the token still valid)
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero,
+
+        //SigningKey (How to verify the token's signature)
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    };
+});
+
+//Add authorization services
+builder.Services.AddAuthorization();
+
+
 //CORS configuration
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: myAllowSpecificOrigins,
@@ -48,3 +86,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+//Add authorization and authentication middlewares
+app.UseAuthentication();
+app.UseAuthorization();
