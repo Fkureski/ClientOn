@@ -6,6 +6,11 @@
 **/*.user
 **/*.suo
 **/*.VC.db
+appsettings.Development.json
+secrets.json
+*.env
+*.pem
+*.key
 
 # VS Code / IDEs
 **/.vscode/
@@ -20,3 +25,9 @@ dist/
 Thumbs.db
 .DS_Store
 '@ | Out-File -Encoding utf8 .gitignore
+
+#Log and temp files
+*.log
+*.tmp
+*.DS_Store
+Thumbs.db
