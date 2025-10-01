@@ -20,6 +20,11 @@ namespace ClientOnApplication.Controllers.Store
         {
             var newStore = await _storeService.RegisterStoreAsync(createStoreDto);
 
+            if (newStore == null) 
+            {
+                return BadRequest("Store registration failed.");
+            }
+
             var response = new StoreResponse
             {
                 Id = newStore.Id,

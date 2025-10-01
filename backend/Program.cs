@@ -19,22 +19,17 @@ builder.Services.AddAuthentication(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        //Configuration for validation Token
-        //Issuer (Who created the token)
         ValidateIssuer = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidIssuer = builder.Configuration["ConnectionStrings:Jwt:Issuer"],
 
-        //Audience (Who is the token intended for)
         ValidateAudience = true,
-        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidAudience = builder.Configuration["ConnectionStrings:Jwt:Audience"],
 
-        //Lifetime (Is the token still valid)
         ValidateLifetime = true,
         ClockSkew = TimeSpan.Zero,
 
-        //SigningKey (How to verify the token's signature)
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["ConnectionStrings:Jwt:Key"]))
     };
 });
 
@@ -77,16 +72,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseCors(myAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
-
-//Add authorization and authentication middlewares
 app.UseAuthentication();
 app.UseAuthorization();
+app.MapControllers();
+app.Run();

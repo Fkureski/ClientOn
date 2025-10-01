@@ -3,6 +3,7 @@
 import Navbar from "@/components/Navbar";
 import { useState } from "react";
 import InputField from "@/components/InputField";
+import { useRouter } from 'next/navigation';
 
 type FormData = {
   legalName: string;
@@ -67,8 +68,10 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   }));
 };
 
+const [successMessage, setSuccessMessage] = useState<string | null>(null);
 const [isLoading, setIsLoading] = useState(false);
 const [error, setError] = useState<string | null>(null);
+const router = useRouter()
 
 const handleNext = () => {
   setStep((prev) => prev + 1);
@@ -110,6 +113,10 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     if(response.ok){
       const result = await response.json();
       console.log("Store registered successfully.", result);
+      setSuccessMessage("Cadastro realizado com sucesso! Você será redirecionado em breve.");
+      setTimeout(() => {
+        router.push('/signup');
+      }, 2000);
     } else {
       const errorData = await response.json();
       setError(errorData.message || "Ocorreu um erro desconhecido ao cadastrar.")
@@ -270,8 +277,8 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             </div>
             <div>
               {error && <p className="text-red-500 text-center">{error}</p>}
-
-              {step == 3 && (
+              {successMessage && <p className="text-green-500 text-center">{successMessage}</p>}
+              {step == 3 && !successMessage && (
                   <button
                     type="submit"
                     className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-gray-500 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black transition-colors cursor-pointer"
