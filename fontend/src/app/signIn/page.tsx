@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import InputField from "@/components/InputField"; 
+import Navbar from "@/components/Navbar";
 
 type FormData = { 
     email: string;
@@ -112,16 +113,17 @@ const LoginForm = () => {
 export default function Signin() {
   return (
     <main className="relative min-h-screen">
-      {/* Div para o fundo desfocado */}
-      <div className="absolute inset-5 bg-form-fundo bg-cover bg-center filter blur-xs z-0"></div>
-      
-      {/* Overlay escuro para melhor legibilidade */}
-     <div className="absolute inset-0 bg-black opacity-30 z-0"></div>
+        <Navbar />
+        {/* Div para o fundo desfocado */}
+        <div className="absolute inset-5 bg-form-fundo bg-cover bg-center filter blur-xs z-0"></div>
+        
+        {/* Overlay escuro para melhor legibilidade */}
+        <div className="absolute inset-0 bg-black opacity-30 z-0"></div>
 
-      {/* Conteúdo do formulário por cima do fundo */}
-      <div className="relative z-10">
-        <LoginForm />
-      </div>
-    </main>
+        {/* Conteúdo do formulário por cima do fundo */}
+        <div className="relative z-10">
+            <LoginForm />
+        </div>
+        </main>
   );
 }

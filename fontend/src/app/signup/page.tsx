@@ -1,9 +1,10 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
 import { useState } from "react";
 import InputField from "@/components/InputField";
 import { useRouter } from 'next/navigation';
+import Navbar from "@/components/Navbar";
+
 
 type FormData = {
   legalName: string;
@@ -134,7 +135,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 };
 
   return (
-    <section className="py-12">
       <div className="flex items-center justify-center min-h-screen">
         <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg">
           <h2 className="text-3xl font-bold text-center text-gray-800">
@@ -290,14 +290,15 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
           </form>
         </div>
       </div>
-    </section>
   );
 };
 
 export default function Signin() {
   return (
     <main className="relative min-h-screen">
+      <Navbar />
       <div className="absolute inset-5 bg-form-fundo bg-cover bg-center filter blur-xs z-0"></div>
+      <div className="absolute inset-0 bg-black opacity-30 z-0"></div>
       <div className="relative z-10">
         <RegistrationForm />
       </div>
