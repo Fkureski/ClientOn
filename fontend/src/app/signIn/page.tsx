@@ -21,12 +21,10 @@ const LoginForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
-    // Função para atualizar o estado quando o usuário digita
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    // Função para lidar com o envio do formulário
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsLoading(true);

@@ -6,6 +6,12 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSingleton(provider =>
+{
+    var config = builder.Configuration.GetSection("Supabase");
+    return new Supabase.Client(config["Url"],config["AnonKey"]);
+});
+
 //Jwt Bearer configurations
 //Add Services to the container.
 builder.Services.AddControllers();
@@ -17,19 +23,21 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
+    var supabaseUrl = builder.Configuration["Supabase:Url"];
+    var jwtSecret = builder.Configuration["Supabase:JwtSecret"];
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
-        ValidIssuer = builder.Configuration["ConnectionStrings:Jwt:Issuer"],
+        ValidIssuer = $"{supabaseUrl}/auth/v1",
 
         ValidateAudience = true,
-        ValidAudience = builder.Configuration["ConnectionStrings:Jwt:Audience"],
+        ValidAudience = "authenticated",
 
         ValidateLifetime = true,
         ClockSkew = TimeSpan.Zero,
 
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["ConnectionStrings:Jwt:Key"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret))
     };
 });
 

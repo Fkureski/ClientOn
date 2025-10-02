@@ -1,4 +1,4 @@
-@'
+=@'
 # Visual Studio / .NET
 **/.vs/
 **/bin/
@@ -7,6 +7,7 @@
 **/*.suo
 **/*.VC.db
 appsettings.Development.json
+appsetting.json
 secrets.json
 *.env
 *.pem
