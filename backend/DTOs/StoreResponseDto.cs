@@ -1,6 +1,6 @@
 ﻿namespace ClientOnApplication.DTOs
 {
-    public class StoreResponse
+    public class StoreResponseDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -25,7 +25,7 @@ namespace ClientOnApplication.Controllers.Store
                 return BadRequest("Store registration failed.");
             }
 
-            var response = new StoreResponse
+            var response = new StoreResponseDto
             {
                 Id = newStore.Id,
                 Name = newStore.Name,
